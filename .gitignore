@@ -9,3 +9,5 @@ sock_test.js
 test.js
 wordlist.js
 wordlist.txt
+.DS_Store
+.gitignore
