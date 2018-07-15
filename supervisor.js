@@ -1,8 +1,6 @@
 var express     = require('express'),
     app         = express(),
     port        = 3000,
-    fs          = require('fs'),
-    request     = require('request'),
     workerpool  = require('workerpool'),
     pool        = workerpool.pool();
     argv        = require('optimist').argv,
@@ -74,7 +72,7 @@ function write() {
 	});
 }
 
-app.get('/framer', (req, res) => {
+app.get('/link', (req, res) => {
     res.send(url);
     write();
 })

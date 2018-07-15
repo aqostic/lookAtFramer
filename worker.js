@@ -4,15 +4,22 @@ var _               = require('underscore'),
     firestore       = require('firebase-admin'),
     serviceAccount  = require("./serviceAccountKey.json");
     workerpool      = require('workerpool'),
-    supervisorUrl   = 'http://localhost:3000/framer';
+    argv            = require('optimist').argv,
+    host            = '';
     counter         = 0
 
 firestore.initializeApp({
 	credential: firestore.credential.cert(serviceAccount)
   });
 
+if(!_.isString(argv.host)) {
+    console.log("Invalid options, please choose valid values for min and max params. \nEx: node wordlist.js --type 1 --min 1 --max 10 ");
+    process.exit(0);
+}
+
 var db           = firestore.firestore(),
-    hostUrl      = "https://framer.cloud/";
+    hostUrl      = "https://framer.cloud/",
+    host         = argv.host;
 
 function init(error, response, body) {
     if (response) {
@@ -32,7 +39,7 @@ function init(error, response, body) {
         // nextSock5();
         console.log(error.code);
     };
-    sendRequest(supervisorUrl);
+    sendRequest(host);
 }
 
 function callback(error, response, body) {
@@ -64,5 +71,5 @@ function sendRequest(destination){
 request(options, callback);
 };
 
-sendRequest(supervisorUrl);
+sendRequest(host);
   
