@@ -1,7 +1,7 @@
 git clone https://github.com/aqostic/lookAtFramer.git
 cd lookAtFramer/
-./run.sh
 chmod u+x run.sh
+./run.sh
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
 source ~/.bashrc
 nvm install 10
