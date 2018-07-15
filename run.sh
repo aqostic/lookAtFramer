@@ -1,5 +1,5 @@
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.32.1/install.sh | bash
-source ~/.bashrc
+sudo source ~/.bashrc
 nvm install 10
 npm init
 npm install express --save-dev
