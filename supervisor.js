@@ -1,5 +1,6 @@
 var express     = require('express'),
     app         = express(),
+    server      = require('http').createServer(app),
     port        = 3000,
     workerpool  = require('workerpool'),
     pool        = workerpool.pool();
@@ -77,9 +78,6 @@ app.get('/link', (req, res) => {
     write();
 })
 
-app.listen(port, (err) => {
-    if (err) {
-        return console.log('something bad happened', err)
-    }
-    console.log('server is listening on ', port)
-})
+server.listen(3000, function(err) {
+    console.log(err, server.address());
+});
