@@ -11,3 +11,4 @@ wordlist.js
 wordlist.txt
 .DS_Store
 .gitignore
+.vscode
