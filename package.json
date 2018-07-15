@@ -13,7 +13,6 @@
     "cheerio": "^1.0.0-rc.2",
     "cookie-parser": "^1.4.3",
     "es6-promise": "^4.2.4",
-    "express": "^4.16.3",
     "firebase": "^5.2.0",
     "firebase-admin": "^5.12.1",
     "googleapis": "^27.0.0",
@@ -26,5 +25,16 @@
     "socksv5": "0.0.6",
     "underscore": "^1.9.1",
     "workerpool": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aqostic/lookAtFramer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aqostic/lookAtFramer/issues"
+  },
+  "homepage": "https://github.com/aqostic/lookAtFramer#readme",
+  "devDependencies": {
+    "express": "^4.16.3"
   }
 }
