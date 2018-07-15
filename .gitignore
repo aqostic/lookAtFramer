@@ -12,3 +12,8 @@ wordlist.txt
 .DS_Store
 .gitignore
 .vscode
+serviceAccountKey.json
+run2.sh
+run.sh
+run.command
+readme.md
