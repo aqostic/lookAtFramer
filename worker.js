@@ -18,7 +18,7 @@ if(!_.isString(argv.host)) {
 }
 
 var db           = firestore.firestore(),
-    hostUrl      = "https://framer.cloud/",
+    hostUrl      = "http://",
     host         = argv.host;
 
 function init(error, response, body) {
