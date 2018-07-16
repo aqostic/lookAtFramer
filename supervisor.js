@@ -14,7 +14,6 @@ var charsBuffer  = [],
 
 charsBuffer = _.union(numbers,alfalow,alfacap);
 
-
 var string = _.map(charsBuffer,function(dec) {
     return String.fromCharCode(dec);
 }).join('');
@@ -77,6 +76,7 @@ function write() {
 app.get('/link', (req, res) => {
     res.send(url);
     write();
+
 })
 
 server.listen(3000, function(err) {
