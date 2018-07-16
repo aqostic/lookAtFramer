@@ -14,6 +14,7 @@ var charsBuffer  = [],
 
 charsBuffer = _.union(numbers,alfalow,alfacap);
 
+
 var string = _.map(charsBuffer,function(dec) {
     return String.fromCharCode(dec);
 }).join('');
