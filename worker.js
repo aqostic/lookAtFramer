@@ -24,7 +24,7 @@ function init(error, response, body) {
     if (response) {
         var body_ = cheerio.load(body);
         var title = body_('head > title').text();
-//         console.log(counter++, response.statusCode, response.request.uri.href, title);
+        console.log(counter++, response.statusCode, response.request.uri.href, title);
         if (response.statusCode == 200) {
             console.log("Found");
             firestore.firestore().collection("valid").doc(title).set({
