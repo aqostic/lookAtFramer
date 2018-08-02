@@ -13,12 +13,12 @@ firestore.initializeApp({
   });
 
 if(!_.isString(argv.host)) {
-    console.log("Invalid options, please choose valid values for min and max params. \nEx: node wordlist.js --type 1 --min 1 --max 10 ");
+    console.log("Invalid host ID");
     process.exit(0);
 }
 
 var db           = firestore.firestore(),
-    hostUrl      = "http://",
+    hostUrl      = "https://framer.cloud/",
     host         = argv.host;
 
 function init(error, response, body) {
@@ -28,8 +28,7 @@ function init(error, response, body) {
         console.log(counter++, response.statusCode, response.request.uri.href, title);
         if (response.statusCode == 200) {
             console.log("Found");
-            firestore.firestore().collection("valid").doc(title).set({
-                id: counter,
+            firestore.firestore().collection("valid").doc(title + response.request.uri.href).set({
                 title: title,
                 link: response.request.uri.href
             });
@@ -37,27 +36,37 @@ function init(error, response, body) {
     }
     else {
         // nextSock5();
-        console.log(error.code);
+        // console.log(error.code);
     };
-    sendRequest(host);
 }
-
+var projectId = [];
+var i = 0;
 function callback(error, response, body) {
     if (response) {
         if (response.statusCode == 200) {
-            projectId = body
-            var requestOptions = {
-                url: hostUrl + projectId,
-                headers: {
-                    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWAppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'
+            projectId = body;
+            projectId = projectId.replace(/'/g, '"');
+            projectId = JSON.parse(projectId);
+            // console.log(projectId.length);
+            while (i < projectId.length ) {
+                // console.log(projectId[i]);
+                var requestOptions = {
+                    url: hostUrl + projectId[i],
+                    headers: {
+                        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWAppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'
+                    }
                 }
+                request(requestOptions, init);
+                i++;
             }
-            request(requestOptions, init);
+            projectId = [];
+            sendRequest(host);
         };
+        
     }
     else {
       // nextSock5();
-      console.log(error.code);
+    //   console.log(error.code);
     };
   }
   
@@ -72,4 +81,12 @@ request(options, callback);
 };
 
 sendRequest(host);
-  
+// console.log(projectId[1]);
+
+// var requestOptions = {
+//     url: hostUrl + projectId,
+//     headers: {
+//         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWAppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'
+//     }
+// }
+// request(requestOptions, init);
