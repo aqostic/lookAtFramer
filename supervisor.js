@@ -6,13 +6,15 @@ var express     = require('express'),
     pool        = workerpool.pool();
     argv        = require('optimist').argv,
     _           = require('underscore');
+    boost        = 1;
 
 var charsBuffer  = [],
 	numbers      = _.range(48, 58),
 	alfalow      = _.range(97,123),
-    alfacap      = _.range(65,91);
+    alfacap      = _.range(65,91),
+    boost        = argv.boost;
 
-charsBuffer = _.union(numbers,alfalow,alfacap);
+charsBuffer = _.union(alfalow,alfacap);
 
 var string = _.map(charsBuffer,function(dec) {
     return String.fromCharCode(dec);
@@ -66,17 +68,32 @@ function nextPermutation(callback) {
     }
 }
 
-url = ""
+var url = "aaaaa";
+var urlBuffer = []
+var urlRange = []
+
 function write() {
 	nextPermutation(function(perm) { 
-		url = perm.join('');
-	});
+        url = perm.join('');
+        console.log(url);
+        if(typeof(perm) != 'object') {
+			process.exit(0);
+		}
+		else
+		{
+            if (urlBuffer.length == 0 || urlBuffer.length < 52 * boost) {
+                urlBuffer.push(url);
+                setImmediate(write);
+            }
+		};
+    });
 }
 
+write();
 app.get('/link', (req, res) => {
-    res.send(url);
+    res.send(urlBuffer);
+    urlBuffer = [];
     write();
-
 })
 
 server.listen(3000, function(err) {
