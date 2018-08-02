@@ -3,7 +3,6 @@ var _               = require('underscore'),
     request         = require('request'),
     firestore       = require('firebase-admin'),
     serviceAccount  = require("./serviceAccountKey.json");
-    workerpool      = require('workerpool'),
     argv            = require('optimist').argv,
     host            = '';
     counter         = 0
