@@ -2,10 +2,10 @@ var _               = require('underscore'),
     cheerio         = require('cheerio')
     request         = require('request'),
     firestore       = require('firebase-admin'),
-    serviceAccount  = require("./serviceAccountKey.json");
+    serviceAccount  = require("./serviceAccountKey.json"),
     argv            = require('optimist').argv,
-    host            = '';
-    counter         = 0
+    host            = '',
+    counter         = 0;
 
 firestore.initializeApp({
 	credential: firestore.credential.cert(serviceAccount)
@@ -35,6 +35,7 @@ function init(error, response, body) {
         };
     }
     else {
+        // nextSock5();
         console.log(error.code);
     };
 }
@@ -42,18 +43,24 @@ var projectId = [];
 var i = 0;
 function callback(error, response, body) {
     if (response) {
+        if (response.statusCode == 403) {process.exit(0);}
         if (response.statusCode == 200) {
             projectId = body;
             projectId = projectId.replace(/'/g, '"');
             projectId = JSON.parse(projectId);
             while (i < projectId.length ) {
+                // console.log(projectId[i]);
                 var requestOptions = {
                     url: hostUrl + projectId[i],
                     headers: {
                         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_5) AppleWAppleWebKit/537.36 (KHTML, like Gecko) Chrome/66.0.3359.181 Safari/537.36'
                     }
                 }
-                request(requestOptions, init);
+                function initRequest() {
+                    request(requestOptions, init);
+                }
+                setImmediate(initRequest);
+
                 i++;
             }
             projectId = [];
