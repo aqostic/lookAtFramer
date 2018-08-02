@@ -2,8 +2,6 @@ var express     = require('express'),
     app         = express(),
     server      = require('http').createServer(app),
     port        = 3000,
-    workerpool  = require('workerpool'),
-    pool        = workerpool.pool();
     argv        = require('optimist').argv,
     _           = require('underscore');
     boost        = 1;
@@ -81,7 +79,7 @@ function write() {
 		}
 		else
 		{
-            if (urlBuffer.length == 0 || urlBuffer.length < 52 * boost) {
+            if (urlBuffer.length == 0 || urlBuffer.length < boost) {
                 urlBuffer.push(url);
                 setImmediate(write);
             }
